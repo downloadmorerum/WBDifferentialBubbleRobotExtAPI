@@ -41,7 +41,7 @@ let clientID = simxStart(host, port, 1, 1, 2000, period)
 guard clientID != -1 else { fatalError("Could not connect to \(host):\(port)") }
 
 while simxGetConnectionId(clientID) != -1 {
-    extApi_sleepMs(period)
+    protected_usleep(Int64(period)*1000)
     var sensorTrigger = simxUChar(0)
     guard simxReadProximitySensor(clientID, sensor, &sensorTrigger, nil, nil, nil, simxInt(simx_opmode_streaming)) == simxInt(simx_return_ok) else { continue }
     //

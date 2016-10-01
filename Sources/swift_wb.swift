@@ -50,6 +50,7 @@ public struct Whiteboard: Blackboard {
         gsw_next_message(wb, msgno).withMemoryRebound(to: T.self, capacity: 1) { $0.pointee = val }
         gsw_increment(wb, msgno)
         gsw_increment_event_counter(wb, msgno)
+        gsw_signal_subscribers(wb)
     }
 }
 
