@@ -49,6 +49,7 @@ public struct Whiteboard: Blackboard {
         let msgno = Int32(msg.rawValue)
         gsw_next_message(wb, msgno).withMemoryRebound(to: T.self, capacity: 1) { $0.pointee = val }
         gsw_increment(wb, msgno)
+        gsw_increment_event_counter(wb, msgno)
     }
 }
 
