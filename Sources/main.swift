@@ -33,14 +33,15 @@ guard let port       = CInt(CommandLine.arguments[i])   else { usage() }
 guard let leftMotor  = CInt(CommandLine.arguments[i+1]) else { usage() }
 guard let rightMotor = CInt(CommandLine.arguments[i+2]) else { usage() }
 guard let sensor     = CInt(CommandLine.arguments[i+3]) else { usage() }
+let period = simxInt(20) // ms
 //
 // Start and run the simulation
 //
-let clientID = simxStart(host, port, 1, 1, 2000, 5)
+let clientID = simxStart(host, port, 1, 1, 2000, period)
 guard clientID != -1 else { fatalError("Could not connect to \(host):\(port)") }
 
 while simxGetConnectionId(clientID) != -1 {
-    extApi_sleepMs(5)
+    extApi_sleepMs(period)
     var sensorTrigger = simxUChar(0)
     guard simxReadProximitySensor(clientID, sensor, &sensorTrigger, nil, nil, nil, simxInt(simx_opmode_streaming)) == simxInt(simx_return_ok) else { continue }
     //
