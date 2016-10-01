@@ -46,9 +46,10 @@ while simxGetConnectionId(clientID) != -1 {
     //
     // get the control message from the whiteboard and set robot velocity
     //
-    if sensorTrigger == 0 {
-        differentialRobot.whiteboardData = wb.differentialRobotControl
-    } else {
+    differentialRobot.whiteboardData = wb.differentialRobotControl
+    if sensorTrigger == 1 &&
+        differentialRobot.leftVelocity  > 0 &&
+        differentialRobot.rightVelocity > 0 {
         differentialRobot.leftVelocity  = 0
         differentialRobot.rightVelocity = 0
     }
